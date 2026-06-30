@@ -1017,7 +1017,9 @@ func searchCustomBuylist(r *http.Request, cardIds []string, foundVendors map[str
 	// retailers list one price per condition
 	isIndex := slices.Contains(UploadIndexComparePriceList, customSeller)
 
-	for _, cardId := range cardIds {
+	// Decklist/hashing searches repeat a key once per copy; foundVendors is
+	// keyed by the unique card, so dedupe to avoid appending an entry per copy.
+	for _, cardId := range dedupeKeys(cardIds) {
 		co, err := mtgmatcher.GetUUID(cardId)
 		if err != nil {
 			continue
