@@ -26,6 +26,7 @@ import (
 	"github.com/hashicorp/go-cleanhttp"
 	_ "github.com/lib/pq"
 	"github.com/mtgban/mtgban-website/observability"
+	"github.com/mtgban/mtgban-website/tcgcsv"
 	"github.com/mtgban/mtgban-website/timeseries"
 	"github.com/mtgban/mtgban-website/userstate"
 
@@ -532,6 +533,7 @@ type ConfigType struct {
 	SqlConfig           *timeseries.SqlConfig `json:"sql_config"`
 	UserStateConfig     *userstate.SqlConfig  `json:"user_state_config"`
 	ObservabilityConfig *timeseries.SqlConfig `json:"observability_config"`
+	TCGCSVConfig        *tcgcsv.Config        `json:"tcgcsv_config"`
 }
 
 var DevMode bool
