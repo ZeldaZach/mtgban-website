@@ -952,7 +952,14 @@
                 </div>{{/* Close .search-results */}}
 
                 {{if eq $firstImg ""}}
-                    {{$firstImg = $.CardBackURL}}
+                    {{/* Sealed products often have no image; a card back would
+                         just flash until the first hover blanks it, so use the
+                         transparent placeholder instead. */}}
+                    {{if $.IsSealed}}
+                        {{$firstImg = $emptyImg}}
+                    {{else}}
+                        {{$firstImg = $.CardBackURL}}
+                    {{end}}
                 {{end}}
                 <script type="text/javascript">
                     updateSidebar({{$firstImg}}, {{$firstPrint}}, {{$firstProduct}}, {{$firstFoil}}, {{$firstEtched}}, {{$firstSetCode}}, {{$firstWarning}});
