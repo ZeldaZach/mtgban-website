@@ -412,9 +412,9 @@ func init() {
 			},
 		},
 		"Screener": {
-			Name:        "Screener",
+			Name:        "Screener (Beta)",
 			Short:       "🔎",
-			Description: "Find cards by price move over time",
+			Description: "Find cards by price movement over time",
 			Link:        "/screener",
 			Handle:      Screener,
 			Page:        "screener.html",
