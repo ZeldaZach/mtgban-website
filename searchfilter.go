@@ -737,10 +737,13 @@ func parseSearchOptionsNG(query string, blocklistRetail, blocklistBuylist []stri
 			}
 			if strings.Contains(code, "-") {
 				codes := strings.Split(code, "-")
-				// Validate that the first element is a number and not a year
-				// to avoid interfering with PLST and similar
-				_, err := strconv.Atoi(codes[0])
-				if err == nil && mtgmatcher.ExtractYear(codes[0]) == "" {
+				// Treat as a range only when both ends are plain numbers in
+				// ascending order, so that dashed collector numbers (PLST's
+				// "SET-123" or year-prefixed promos like "2002-1") keep
+				// matching literally
+				first, errFirst := strconv.Atoi(codes[0])
+				second, errSecond := strconv.Atoi(codes[1])
+				if errFirst == nil && errSecond == nil && first < second {
 					code = codes[0]
 					opt = "number_greater_than"
 					subfilters = append(subfilters, FilterElem{
