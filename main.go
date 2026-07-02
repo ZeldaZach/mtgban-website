@@ -1133,6 +1133,8 @@ func main() {
 	http.Handle("/api/palette/sets.json", noSigning(http.HandlerFunc(PaletteSets)))
 	http.Handle("/api/palette/stores.json", noSigning(http.HandlerFunc(PaletteStores)))
 
+	http.Handle("/monroecards", http.RedirectHandler("/screener", http.StatusFound))
+
 	http.HandleFunc("/auth", Auth)
 
 	// /healthz: returns 200 only if dependencies are OK.
